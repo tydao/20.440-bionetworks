@@ -17,9 +17,10 @@ SO <- ScaleData(SO, features = all.genes)
 SO <- RunPCA(SO, features = VariableFeatures(object = SO))
 
 # Run Clustering and Reduction
-SO <- RunUMAP(SO, dims = 1:10)
+SO <- FindNeighbors(SO, dims = 1:10)
 SO <- FindClusters(SO, reduction.type = "umap", resolution = 0.051)
 
 # Plot Graph
+SO <- RunUMAP(SO, dims = 1:10)
 DimPlot(SO, reduction = "umap", label = TRUE)
 FeaturePlot(SO, features=c("TNMD", "ASPN", "SPARC", "HMGN2"))
