@@ -2,7 +2,7 @@
 
 ## Description
 
-We propose to characterize the population heterogeneity of axolotl cells across the span of regeneration. We hypothesize that novel cell populations derived from the blastema express species specific genes and autonomous patterning and regeneration, offering one explanation for why regeneration is not conserved. To identify key cells in regeneration, we propose to profile populations at the site of injury in regenerating limbs as compared to healthy tissue using single cell RNA sequencing, focusing on rare subpopulations that were previously not identified. Our aims for this project are as follows:  
+We propose to characterize the population heterogeneity of axolotl cells across the span of regeneration. We hypothesize that novel cell populations derived from the blastema express species specific genes and autonomous patterning and regeneration, offering one explanation for why regeneration is not conserved. To identify key cells in regeneration, we propose to profile cellular populations at the site of injury in regenerating limbs as compared to healthy tissue using single cell RNA sequencing, focusing on rare subpopulations that were previously not identified. Our aims for this project are as follows:  
 
 **Aim 1**. Identify rare populations of cells at different time points during regeneration
 
@@ -18,7 +18,7 @@ This repo contains data and code used by Tyler Dao and Nicholas Hutchins for 20.
 * *Deliverables* - written material on the project
 * *Script* - contains R scripts for the analysis
 
-At present, the code is sufficient to perform preliminary analysis on the scRNA-seq dataset presentDimensionality reduction was performed for visualization using UMAP, and the differential expression of 4 known tissue formation regulation genes (TNMD, ASPN, SPARC, HMGN2) were overlaid on the clusters. 
+At present, the code is sufficient to perform preliminary analysis on the scRNA-seq dataset present. Dimensionality reduction was performed for visualization using UMAP, and the differential expression of 4 known tissue formation regulation genes (TNMD, ASPN, SPARC, HMGN2) were overlaid on the clusters. 
 
 
 ## Data
