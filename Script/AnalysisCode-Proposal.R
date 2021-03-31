@@ -1,7 +1,7 @@
 library(Seurat)
 
 # Read in the data
-raw_counts <- read.csv('aaq0681_TableS5.csv')
+raw_counts <- read.csv('Data/aaq0681_TableS5.csv')
 #colnames(raw_counts) <- raw_counts[1, ]
 #raw_counts <- raw_counts[-1, ]
 rownames(raw_counts) <- raw_counts[, 1]
