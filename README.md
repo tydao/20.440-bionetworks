@@ -4,9 +4,9 @@
 
 We propose to characterize the population heterogeneity of axolotl cells across the span of regeneration. We hypothesize that novel cell populations derived from the blastema express species specific genes and autonomous patterning and regeneration, offering one explanation for why regeneration is not conserved. To identify key cells in regeneration, we propose to profile cellular populations at the site of injury in regenerating limbs as compared to healthy tissue using single cell RNA sequencing, focusing on rare subpopulations that were previously not identified. Our aims for this project are as follows:  
 
-**Aim 1**. Identify rare populations of cells at different time points during regeneration
+**Aim 1**. Characterize global processes at each step of regeneration
 
-**Aim 2**. Dissect the genetic drivers of cell state transition at different time points during regeneration  
+**Aim 2**. Resolve cellular subpopulations and identify cellular drivers of regeneration 
 
 
 ## Overview
