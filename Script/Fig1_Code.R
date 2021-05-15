@@ -9,6 +9,10 @@ library(DESeq2)
 library(magrittr)
 library(dplyr)
 library(ggplot2)
+library(escape)
+library(SingleCellExperiment)
+library(dittoSeq)
+library(SeuratObject)
 
 ts5 <- read.csv('Data/aaq0681_TableS5.csv') #Healthy
 ts7 <- read.csv('Data/aaq0681_TableS7.csv') # Connective Tissue
@@ -103,3 +107,45 @@ DimPlot(SO_oncs, label=T, group.by="identity", cells.highlight= list(g1_treat, g
 g1_treat <- WhichCells(SO_oncs, idents = c("38dpaA", "38dpaB"))
 g1_untreat <- g1_treat <- WhichCells(SO_oncs, idents = c("CTa", "CTb", "25dpaA", "25dpaB", "18dpaB", "18dpaA"))
 DimPlot(SO_oncs, label=T, group.by="identity", cells.highlight= list(g1_treat, g1_untreat), cols.highlight = c("darkblue", "darkred"), cols= "grey")
+
+# Fig S2
+# https://scrnaseq-course.cog.sanger.ac.uk/website/seurat-chapter.html
+merged_CT <- NormalizeData(merged_CT)
+# head(x = HVFInfo(object = SO)) #View the variance
+merged_CT <- ScaleData(merged_CT, features = rownames(SO))
+
+# Removes cell-cycle variation ----
+# A list of cell cycle markers, from Tirosh et al, 2015, is loaded with Seurat.  We can
+# segregate this list into markers of G2/M phase and markers of S phase
+s.genes <- cc.genes$s.genes
+g2m.genes <- cc.genes$g2m.genes
+
+# Gets cell cycle score and changes the current identity
+merged_CT <- CellCycleScoring(merged_CT, s.features = s.genes, g2m.features = g2m.genes, set.ident = TRUE)
+RidgePlot(SO, features = c("PCNA", "TOP2A", "MCM6", "MKI67"), ncol = 2)
+
+# "Before" PCA
+merged_CT <- RunPCA(merged_CT, features = c(s.genes, g2m.genes))
+DimPlot(merged_CT)
+
+# Regressed PCA
+merged_CT <- ScaleData(merged_CT, vars.to.regress = c("S.Score", "G2M.Score"), features = rownames(SO))
+merged_CT <- RunPCA(merged_CT, features = c(s.genes, g2m.genes))
+DimPlot(merged_CT)
+
+# Make plot of all cells
+merged_CT <- RunUMAP(merged_CT)
+FeaturePlot(merged_CT, features=c("FZD2", "KLF4", "FZD7"))
+
+# Rename identities
+SO$orig.ident[SO$orig.ident %in% c("CTb", "CTa")] = "Ctrl"
+SO$orig.ident[SO$orig.ident %in% c("38dpaA", "38dpaB")] = "38dpa"
+SO$orig.ident[SO$orig.ident %in% c("25dpaA", "25dpaB")] = "25dpa"
+SO$orig.ident[SO$orig.ident %in% c("18dpaA", "18dpaB")] = "18dpa"
+
+# Do single single gsea
+GS.hallmark <- getGeneSets(library = "H")
+ES.seurat <- enrichIt(obj = SO, gene.sets = GS.hallmark, groups = 1000, cores = 2)
+
+SO <- Seurat::AddMetaData(SO, ES.seurat)
+dittoHeatmap(SO, genes = NULL, metas = names(ES.seurat))
