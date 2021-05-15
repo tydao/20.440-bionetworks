@@ -148,4 +148,4 @@ GS.hallmark <- getGeneSets(library = "H")
 ES.seurat <- enrichIt(obj = SO, gene.sets = GS.hallmark, groups = 1000, cores = 2)
 
 SO <- Seurat::AddMetaData(SO, ES.seurat)
-dittoHeatmap(SO, genes = NULL, metas = names(ES.seurat))
+#dittoHeatmap(SO, genes = NULL, metas = names(ES.seurat))
